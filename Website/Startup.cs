@@ -1,13 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Api;
+using ElasticSearch;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace site
+namespace Website
 {
     public class Startup
     {
@@ -22,6 +20,7 @@ namespace site
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddTransient<ISearchProvider, ElasticSearchProvider>(); // TODO Where else could this go?
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

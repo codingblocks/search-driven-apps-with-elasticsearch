@@ -1,9 +1,9 @@
-const inputFileName = "games.json";
-const outputFileName = "games-formatted.import";
+const inputFileName = "data/games.json";
+const outputFileName = "data/games-formatted.import";
 
 var fs = require('fs');
 
-fs.readFile('games.json', 'utf8', function (err, data) {
+fs.readFile(inputFileName, 'utf8', function (err, data) {
     if (err) {
         throw err;
     }
@@ -11,7 +11,8 @@ fs.readFile('games.json', 'utf8', function (err, data) {
     var games = JSON.parse(data);
     var counter = 1;
     var formattedStrings = games.map(game => {
-        var headerRow = `{"index":{"_index":"games", "_type":"games", "_id": "${counter}"}}`;
+      var headerRow = `{"index":{"_index":"games", "_type":"boardgame", "_id": "${counter}"}}`;
+        game.mechanics = game.mechanics.split(',').map(g => g.trim());
         var docRow = JSON.stringify(game);
         counter++;
         return headerRow + '\n' + docRow;
@@ -29,5 +30,4 @@ fs.readFile('games.json', 'utf8', function (err, data) {
         console.log(`${outputFileName} has been generated`)
     }); 
 
-    
 });

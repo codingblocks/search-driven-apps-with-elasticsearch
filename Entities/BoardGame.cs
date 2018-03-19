@@ -3,19 +3,16 @@ using System.Collections.Generic;
 
 namespace Entities
 {
-namespace Entities
-{
     public class BoardGame
     {
-      long Id { get; set; }
-      string Game { get; set; }
-      decimal Rating { get; set; }
-      int time { get; set; }
-      int MinPlayers { get; set; }
-      int MaxPlayers { get; set; }
-      int RecommendedPlayers { get; set; }
-      IEnumerable<string> Mechanics { get; set; }
-      string BggLink { get; set; }
+      public long Id { get; set; }
+      public string Game { get; set; }
+      public decimal Rating { get; set; }
+      public int time { get; set; }
+      public int MinPlayers { get; set; }
+      public int MaxPlayers { get; set; }
+      public int RecommendedPlayers { get; set; }
+      public IEnumerable<string> Mechanics { get; set; }
+      public string BoardGameGeek { get; set; }
     }
-}
 }
