@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Api;
 
 namespace ElasticSearch
@@ -11,7 +12,7 @@ namespace ElasticSearch
       public int MinimumPlayers { get; set; }
       public int MaximumPlayers { get; set; }
       public int RecommendedPlayers { get; set; }
-      public string Mechanics { get; set; }
+      public IEnumerable<string> Mechanics { get; set; }
       public string BoardGameGeekLink { get; set; }
       public bool WantsToPlay { get; set; }
     }

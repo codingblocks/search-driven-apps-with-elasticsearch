@@ -8,19 +8,19 @@ PUT /games
  "mappings": {
   "boardgame": {
    "properties": {
-      "Id": {"type": "integer"},
+      "id": {"type": "integer"},
       "title": {"type": "text"},
-      "Rating": {"type": "float"},
-      "Time": {"type": "integer"},
-      "MinimumPlayers": {"type": "integer"},
-      "MaximumPlayers": {"type": "integer"},
-      "RecommendedPlayers": {"type": "integer"},
-      "Mechanics": { "type": "text" },
-      "Demo": {"type": "boolean"},
-      "WantsToPlay": {"type": "boolean"},
-      "Owns": {"type": "boolean"},
-      "Played": {"type": "boolean"},
-      "BoardGameGeekLink": {"type": "text"}
+      "rating": {"type": "float"},
+      "time": {"type": "integer"},
+      "minimumPlayers": {"type": "integer"},
+      "maximumPlayers": {"type": "integer"},
+      "recommendedPlayers": {"type": "integer"},
+      "mechanics": { "type": "text" },
+      "demo": {"type": "boolean"},
+      "wantsToPlay": {"type": "boolean"},
+      "owns": {"type": "boolean"},
+      "played": {"type": "boolean"},
+      "boardGameGeekLink": {"type": "text"}
    }
   }
  }

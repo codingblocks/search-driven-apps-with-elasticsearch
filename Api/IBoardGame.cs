@@ -11,7 +11,7 @@ namespace Api
       int MinimumPlayers { get; set; }
       int MaximumPlayers { get; set; }
       int RecommendedPlayers { get; set; }
-      string Mechanics { get; set; }
+      IEnumerable<string> Mechanics { get; set; }
       string BoardGameGeekLink { get; set; }
       bool WantsToPlay { get; set; }
   }
