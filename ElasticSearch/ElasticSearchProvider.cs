@@ -16,9 +16,7 @@ namespace ElasticSearch
       var searchResponse = client.Search<BoardGame>(s => s
         .From(0)
         .Size(20)
-        .Query(q => q
-          .Term(p => p.WantsToPlay, true)
-      ));
+      );
       return searchResponse.Documents;
     }
   }

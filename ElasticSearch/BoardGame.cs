@@ -14,6 +14,6 @@ namespace ElasticSearch
       public int RecommendedPlayers { get; set; }
       public IEnumerable<string> Mechanics { get; set; }
       public string BoardGameGeekLink { get; set; }
-      public bool WantsToPlay { get; set; }
+      public IEnumerable<string> WantsToPlay { get; set; }
     }
 }

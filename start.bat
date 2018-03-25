@@ -17,7 +17,7 @@ PUT /games
       "recommendedPlayers": {"type": "integer"},
       "mechanics": { "type": "text" },
       "demo": {"type": "boolean"},
-      "wantsToPlay": {"type": "boolean"},
+      "wantsToPlay": {"type": "text"},
       "owns": {"type": "boolean"},
       "played": {"type": "boolean"},
       "boardGameGeekLink": {"type": "text"}

@@ -1,35 +1,54 @@
+/* Account for the header/footer */ 
 body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+  padding-top: 50px;
+  padding-bottom: 20px;
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+.game {
+  width: 300px;
+  height: 250px;
+  overflow-y: hidden;
+  border: 1px solid #f0f0f0;
+  padding: 0 30px 0 20px;
+  -ms-border-radius: 20px;
+  border-radius: 20px;
+  margin: 10px;
+  font-size: 10px;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+.game .title {
+  font-weight: bold;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 5px;
+  font-size: 14px;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+.bgg-id {
+  position: relative;
+  top: 220px;
+  text-align: right;
+  width: 260px
+}
+.game .mechanics {
+  font-size: 10px
 }
 
-/* QR code generator */
-#qrCode {
-    margin: 15px;
+.game .rating {
+  float: right;
 }
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
+.interested {
+  margin-top: 20px;
+}
+
+.mechanics {
+  margin-top: 20px;
+}
+
+.game .mechanics-icon {
+  margin-right: 2px;
+}
+
+.glyphicon {
+  color: #f0f0f0;
 }
