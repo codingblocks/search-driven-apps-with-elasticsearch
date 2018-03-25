@@ -22,6 +22,7 @@ namespace Website.Pages
     public int PagingToolbarEnd { get; set; }
     public int PagingToolbarStart { get; set; }
     public bool ShowPagingToolbar { get; set; }
+    public string WantsToPlay{ get; set; }
 
     public void OnGet()
     {
@@ -35,6 +36,7 @@ namespace Website.Pages
     private void ParseInput()
     {
       var pageInput = HttpContext.Request.Query["page"];
+      WantsToPlay = HttpContext.Request.Query["wantsToPlay"];
       CurrentPage = int.TryParse(pageInput, out var currentPage) ? currentPage : 1;
     }
 
@@ -59,7 +61,8 @@ namespace Website.Pages
       var query = new BoardGameSearch
       {
           PageSize = PageSize,
-          PageNumber = CurrentPage
+          PageNumber = CurrentPage,
+          WantsToPlay = string.IsNullOrEmpty(WantsToPlay) ? null : WantsToPlay.Split(",")
       };
 
       var results = SearchProvider.Search(query);

@@ -42,7 +42,10 @@
           @{
             if (game.WantsToPlay != null && game.WantsToPlay.Any())
             {
-              @string.Join(", ", game.WantsToPlay)
+              foreach (var w in game.WantsToPlay)
+              {
+                 <a href="?wantsToPlay=@w" title="Games that @w wants to play">@w</a>@((w != game.WantsToPlay.Last()) ? "," : "")
+              }
             }
             else
             {
@@ -52,9 +55,17 @@
         </div>
         <div class="mechanics">
           <span class="glyphicon glyphicon-tags mechanics-icon"></span>
-          @foreach (var m in game.Mechanics)
+          @if (game.Mechanics.Where(x => x.Length > 0).Any()) // TODO!
           {
-            <a href="/@m" target="_blank" title="Games with @m mechanics">@m</a>@((m != game.Mechanics.Last()) ? "," : "")
+            foreach (var m in game.Mechanics)
+            {
+               <a href="/@m" target="_blank" title="Games with @m mechanics">@m</a>
+               @((m != game.Mechanics.Last()) ? "," : "")
+            }
+          }
+          else
+          {
+            <text>None</text>
           }
         </div>
       </div>
