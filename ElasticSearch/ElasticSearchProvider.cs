@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Api;
 using Nest;
 
@@ -7,17 +6,21 @@ namespace ElasticSearch
 {
   public class ElasticSearchProvider : ISearchProvider
   {
-    public IEnumerable<IBoardGame> Test()
+    public ISearchResult Search(ISearchQuery search)
     {
-      var settings = new ConnectionSettings(new Uri("http://localhost:9200"))
-        .DefaultIndex("games");
+      // TODO
+      var settings = new ConnectionSettings(new Uri("http://localhost:9200")).DefaultIndex("games");
 
       var client = new ElasticClient(settings);
       var searchResponse = client.Search<BoardGame>(s => s
-        .From(0)
-        .Size(20)
+        .From(Math.Max(0, search.PageNumber - 1) * search.PageSize) // TODO
+        .Size(search.PageSize)
       );
-      return searchResponse.Documents;
+      return new SearchResult
+      {
+        BoardGames = searchResponse.Documents,
+        Total = (int) searchResponse.Total // Don't expect anything near max int
+      };
     }
   }
 }
