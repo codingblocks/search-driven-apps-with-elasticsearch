@@ -12,3 +12,6 @@ FROM microsoft/aspnetcore:2.0
 WORKDIR /app
 COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "Website.dll"]
+# No Expose?
+# Env for environment variables
+# ENV ELASTIC
