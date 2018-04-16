@@ -1,12 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="row">
-    <h1>Delete</h1>
-    <p>Status Code: {{ delete_response.status_code }}</p>
-    <p>Content: {{ delete_response.content }}</p>
-    <h1>Put</h1>
-    <p>Mappings: {{ mapping_config }}</p>
-    <p>Status Code: {{ delete_response.status_code }}</p>
-    <p>Content: {{ delete_response.content }}</p>
+    <h1>Resetting data</h1>
+
+    <p>DELETE <code>{{ delete_response.status_code }}</code></p>
+    <pre>{{ delete_response.content }}</pre>
+
+    <p>PUT <code>{{ put_response.status_code }}</code></p>
+    <!--<p>Mappings: <pre>{{ mapping_config }}</pre></p>-->
+    <pre>{{ delete_response.content }}</pre>
+
+    <p>POST: <code>{{ put_request.status_code }}</code></p>
+    <pre>{{ put_response.content }}</pre>
 </div>
 {% endblock %}

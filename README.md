@@ -27,3 +27,10 @@ docker-compose -f docker-compose-dev.yml up```
 
 ```docker build -t flask-sample:latest .\flask```
 ```docker-compose -f docker-compose-flask.yml up```
+
+
+
+## Questions...
+
+Why does this seem wrong?
+If I use docker-compose up and python crashes, I have to restart everything?
