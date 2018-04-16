@@ -22,8 +22,8 @@ echo Now listening on :8080 :5601 and :9200
 
 # For Dev:
 ```// This will spin up elasticsearch and kibana
-docker-compose -f .\docker-compose-dev.yml up```
+docker-compose -f docker-compose-dev.yml up```
 ```dotnet restore && dotnet build && dotnet run --project .\Website\```
 
 ```docker build -t flask-sample:latest .```
-```docker run -p 5000:5000 -v "$(pwd)":/app flask-sample```
+```docker-compose -f docker-compose-dev.yml up```

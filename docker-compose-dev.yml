@@ -25,6 +25,16 @@ services:
       - 5601:5601
     networks:
       - elasticnetwork
+  website:
+    build: ./Dockerfile
+    image: flask-sample
+    container_name: website
+    ports:
+      - 5000:5000
+    volumes:
+      - /Users/joe/OneDrive/Projects/BoardGames/flask:/app
+    networks:
+      - elasticnetwork
 volumes:
   esdata1:
     driver: local
