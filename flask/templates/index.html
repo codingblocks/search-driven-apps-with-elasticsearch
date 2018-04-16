@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="row">
-    <p>Test!</p>
+    <p><code>{{ search_results.status_code }}</code></p>
+    <p>{{ search_content.hits.hits[0]._source.mechanics[1] }}</p>
 </div>
 {% endblock %}
