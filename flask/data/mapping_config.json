@@ -11,7 +11,7 @@
                 "recommendedPlayers": {"type": "integer"},
                 "mechanics": { "type": "text" },
                 "demo": {"type": "boolean"},
-                "wantsToPlay": {"type": "text"},
+                "wantsToPlay": {"type": "keyword"},
                 "owns": {"type": "boolean"},
                 "played": {"type": "boolean"},
                 "boardGameGeekLink": {"type": "text"}

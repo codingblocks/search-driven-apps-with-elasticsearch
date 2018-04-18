@@ -5,10 +5,19 @@ app = Flask(__name__)
  
 @app.route('/')
 def index():
-    data = json.dumps({"query": { "match": { "wantsToPlay": "Carrie" } } })
+    data = json.dumps({
+                "query": {
+                "bool": {
+                "filter": [
+                    { "term": { "wantsToPlay" : "Josh" } },
+                    { "term": { "wantsToPlay" : "Carrie" } }
+                ]
+            }
+        }
+    })
     search_results = requests.get('http://elasticsearch:9200/games/_search', headers={'content-type': 'application/json'}, data=data)
-    search_content = json.loads(search_results.content) # deserialize the content so we can access things via python
-    return render_template("index.html",search_results=search_results,search_content=search_content)
+    results = json.loads(search_results.content) # deserialize the content so we can access things via python
+    return render_template("index.html",hits=results['hits'])
 
 @app.route('/reset')
 def reset():
