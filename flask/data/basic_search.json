@@ -1,0 +1,21 @@
+{
+  "size": 12,
+  "aggs": {
+    "wantsToPlay": {
+      "terms": {
+        "field": "wantsToPlay",
+        "order": {
+          "_count": "desc"
+        }
+      }
+    },
+    "mechanics": {
+      "terms": {
+        "field": "mechanics",
+        "order": {
+          "_count": "desc"
+        }
+      }
+    }
+  }
+}
