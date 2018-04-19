@@ -3,33 +3,6 @@
   <h2 class="text-center">{{ hits.total|int }} {{ "game" if hits.total == 1 else "games" }} found</h2>
 </div>
 <div class="row">
-  <form id="frm_filter">
-    <div class="form-group">
-      <label for="formGroupExampleInput">Players</label>
-      {% for p in aggregations.wantsToPlay.buckets %}
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" name="wants_to_play" value="{{ p.key }}" id="p{{ p.key }}">
-          <label class="form-check-label" for="p{{ p.key }}">
-            {{ p.key }} ({{ p.doc_count }})
-          </label>
-        </div>
-      {% endfor %}
-    </div>
-    <div class="form-group">
-      <label for="formGroupExampleInput">Mechanics</label>
-      {% for m in aggregations.mechanics.buckets %}
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" name="mechanics" value="{{ m.key }}" id="m{{ m.key }}">
-          <label class="form-check-label" for="m{{ m.key }}">
-            {{ m.key }} ({{ m.doc_count }})
-          </label>
-        </div>
-      {% endfor %}
-    </div>
-    <button type="submit" class="btn btn-primary" id="btn_filter">Filter</button>
-  </form>
-</div>
-<div class="row">
   {% for game in hits.hits %}
   <div class="col-md-4">
     <div class="game">
@@ -113,5 +86,47 @@
       </nav>
     </div>
   </div>
+
+  <div class="modal" tabindex="-1" role="dialog" id="mdl_filter">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Filter</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="frm_filter">
+          <div class="form-group">
+            <label for="formGroupExampleInput">Players</label>
+            {% for p in aggregations.wantsToPlay.buckets %}
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="wants_to_play" value="{{ p.key }}" id="p{{ p.key }}">
+                <label class="form-check-label" for="p{{ p.key }}">
+                  {{ p.key }} ({{ p.doc_count }})
+                </label>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="form-group">
+            <label for="formGroupExampleInput">Mechanics</label>
+            {% for m in aggregations.mechanics.buckets %}
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="mechanics" value="{{ m.key }}" id="m{{ m.key }}">
+                <label class="form-check-label" for="m{{ m.key }}">
+                  {{ m.key }} ({{ m.doc_count }})
+                </label>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary action_filter">Filter</button>
+          <button type="button" class="btn btn-secondary action_clear">Clear Filters</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 {% endif %}
 {% endblock %}
