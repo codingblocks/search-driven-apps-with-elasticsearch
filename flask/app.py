@@ -33,7 +33,8 @@ def reset():
 def import_json(filename, query={}):
   file_data = open(filename).read()
   json_data = json.loads(file_data)
-  json_data['query'] = query
+  if query:
+    json_data['query'] = query
   return json.dumps(json_data, indent=2, sort_keys=True) # Make it pretty!
 
 def get_query_from_params():
