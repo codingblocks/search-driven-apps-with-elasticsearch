@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Board Games</title>
-
     <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -31,29 +30,11 @@
         {% block content %}{% endblock %}
         <hr />
         <footer>
-            <!-- <p>&copy; 2017 - site</p> -->
+            <p>&copy; 2018 - site</p>
         </footer>
     </div>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"></script>
-    <script>
-    $(document).ready(function() {
-      $('button').on('click', function(event) {
-        var checked = $('form').find('input:checkbox:checked');
-        var params = [];
-        for(var i in checked) {
-          var cb = checked[i];
-          if(cb.name && cb.value) {
-            params.push({ name: cb.name, value: cb.value });
-          }
-        }
-
-        event.preventDefault();
-        if(params.length) {
-          location.href = '/?' + $.param(params);
-        }
-      });
-    });
-    </script>
+    <script src="{{ url_for('static', filename='js/site.js') }}"></script>
 </body>
 </html>

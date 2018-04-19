@@ -3,7 +3,7 @@
   <h2 class="text-center">{{ hits.total|int }} {{ "game" if hits.total == 1 else "games" }} found</h2>
 </div>
 <div class="row">
-  <form>
+  <form id="frm_filter">
     <div class="form-group">
       <label for="formGroupExampleInput">Players</label>
       {% for p in aggregations.wantsToPlay.buckets %}
@@ -26,7 +26,7 @@
         </div>
       {% endfor %}
     </div>
-    <button type="submit" class="btn btn-primary">Filter</button>
+    <button type="submit" class="btn btn-primary" id="btn_filter">Filter</button>
   </form>
 </div>
 <div class="row">
