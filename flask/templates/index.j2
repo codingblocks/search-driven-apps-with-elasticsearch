@@ -12,7 +12,7 @@
       <div class="title">{{game._source.title}}</div>
       <div>
         <div class="time">
-          <span class="glyphicon glyphicon-time"></span> {{game._source.Time}} minutes
+          <span class="glyphicon glyphicon-time"></span> {{game._source.time}} minutes
           <span class="rating">
             <span class="glyphicon glyphicon-thumbs-up"></span>
             <a href="{{game._source.boardGameGeekLink}}" title="Open on BoardGameGeek" target="_blank">{{game._source.rating}}</a>
@@ -98,8 +98,16 @@
         </div>
         <div class="modal-body" id="frm_filter">
           <div class="form-group">
-            <label for="formGroupExampleInput">Players</label>
-            {% for p in aggregations.wantsToPlay.buckets %}
+            <label for="number_of_players">Number of Players</label>
+            <select class="form-control" name="number_of_players">
+              {% for i in range(1,20) %}
+                <option>{{ i }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="wants_to_play">Players</label>
+            {% for p in aggregations.wants_to_play.buckets %}
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" name="wants_to_play" value="{{ p.key }}" id="p{{ p.key }}">
                 <label class="form-check-label" for="p{{ p.key }}">
@@ -109,7 +117,29 @@
             {% endfor %}
           </div>
           <div class="form-group">
-            <label for="formGroupExampleInput">Mechanics</label>
+            <label for="rating_range">Rating</label>
+            {% for m in aggregations.rating_ranges.buckets %}
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="rating_ranges" value="{{ m.key }}" id="m{{ m.key }}">
+                <label class="form-check-label" for="m{{ m.key }}">
+                  {{ m.key }} ({{ m.doc_count }})
+                </label>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="form-group">
+            <label for="time_range">Time to Play</label>
+            {% for m in aggregations.time_ranges.buckets %}
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="time_ranges" value="{{ m.key }}" id="m{{ m.key }}">
+                <label class="form-check-label" for="m{{ m.key }}">
+                  {{ m.key }} ({{ m.doc_count }})
+                </label>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="form-group">
+            <label for="mechanics">Mechanics</label>
             {% for m in aggregations.mechanics.buckets %}
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" name="mechanics" value="{{ m.key }}" id="m{{ m.key }}">
