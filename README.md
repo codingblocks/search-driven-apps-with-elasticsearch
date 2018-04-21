@@ -23,10 +23,9 @@ docker run -p 8080:52914 --name aspnetcore -v .:/app "dot net run"
 
 ```// This will spin up elasticsearch and kibana
 docker-compose -f docker-compose-dev.yml up```
-```dotnet restore && dotnet build && dotnet run --project .\Website\```
 
-```docker build -t flask-sample:latest .\flask```
-```docker-compose -f docker-compose-flask.yml up```
+```docker build -t flask:latest .```
+```docker-compose up```
 
 
 
