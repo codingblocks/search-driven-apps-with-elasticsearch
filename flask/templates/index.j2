@@ -130,9 +130,9 @@
           <div class="form-group">
             <label for="time_range">Time to Play</label>
             {% for m in aggregations.time_ranges.buckets %}
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="time_ranges" value="{{ m.key }}" id="m{{ m.key }}">
-                <label class="form-check-label" for="m{{ m.key }}">
+              <div class="form-radio form-radio-inline">
+                <input class="form-radio-input" type="radio" name="time_ranges" value="{{ m.key }}" id="m{{ m.key }}">
+                <label class="form-radio-label" for="m{{ m.key }}">
                   {{ m.key }} ({{ m.doc_count }})
                 </label>
               </div>
