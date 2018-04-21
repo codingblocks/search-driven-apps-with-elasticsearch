@@ -1,0 +1,2 @@
+{"index":{"_index":"games", "_type":"boardgame", "_id": "1"}}
+{"mechanics": "Dice Rolling", "rating": 7.16343, "wantsToPlay": ["Mike", "Josh", "Carrie"], "played": "", "title": "Tumblin-Dice", "demo": "", "maximumPlayers": 4, "recommendedPlayers": 4, "boardGameGeekLink": "https://boardgamegeek.com/boardgame/16747", "Time": 30, "minimumPlayers": 1, "Id": 16747, "owns": ""}

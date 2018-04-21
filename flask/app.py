@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from logger import Logger
+from importer import Importer
 import json, requests
 
 app = Flask(__name__)
@@ -21,12 +22,15 @@ def index():
 
 @app.route('/reset')
 def reset():
+  i = Importer()
+  games_converted = i.convert_json_to_elastic('data/games.json','data/games-formatted.import')
+  game_conversion_success = games_converted > 0
   responses = {
     'delete': requests.delete('http://elasticsearch:9200/games', headers={'content-type': 'application/json'}),
     'put': requests.put('http://elasticsearch:9200/games', headers={'content-type': 'application/json'}, data=import_json('data/mapping_config.json')),
     'post': requests.post('http://elasticsearch:9200/games/doc/_bulk', headers={'content-type': 'application/x-ndjson'}, data=open('data/games-formatted.txt').read())
   }
-  return render_template("reset.j2", responses=responses)
+  return render_template("reset.j2", game_conversion_success=game_conversion_success, responses=responses)
 
 def import_json(filename, query={}):
   file_data = open(filename).read()
