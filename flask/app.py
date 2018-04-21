@@ -1,15 +1,13 @@
-from __future__ import print_function
-import sys
-
 from flask import Flask, render_template, request
+from logger import Logger
 import json, requests
 
 app = Flask(__name__)
- 
+
 @app.route('/')
 def index():
   query = import_json('data/basic_search.json', get_query_from_params())
-  print(query, file=sys.stderr)
+  Logger.info(query)
   search_results = requests.get('http://elasticsearch:9200/games/_search', headers={'content-type': 'application/json'}, data=query)
   results = json.loads(search_results.content) # deserialize the content so we can access things via python
   paging = {
@@ -40,8 +38,8 @@ def import_json(filename, query={}):
 def get_query_from_params():
   wants_to_play = request.args.getlist('wants_to_play')
   mechanics = request.args.getlist('mechanics')
-  print(wants_to_play, file=sys.stderr)
-  print(mechanics, file=sys.stderr)
+  Logger.info(wants_to_play)
+  Logger.info(mechanics)
   data = {}
   
   if wants_to_play or mechanics:
