@@ -1,0 +1,162 @@
+{% extends "layout.j2" %} {% block content %}
+<div class="row">
+  <h2 class="text-center">{{ hits.total|int }} {{ "game" if hits.total == 1 else "games" }} found</h2>
+</div>
+<div class="row">
+  {% for game in hits.hits %}
+  <div class="col-md-4">
+    <div class="game">
+      <div class="bgg-id">
+        <a href="{{game._source.boardGameGeekLink}}" title="Open on BoardGameGeek">#{{game._source.Id}}</a>
+      </div>
+      <div class="title">{{game._source.title}}</div>
+      <div>
+        <div class="time">
+          <span class="glyphicon glyphicon-time"></span> {{game._source.time}} minutes
+          <span class="rating">
+            <span class="glyphicon glyphicon-thumbs-up"></span>
+            <a href="{{game._source.boardGameGeekLink}}" title="Open on BoardGameGeek" target="_blank">{{game._source.rating}}</a>
+          </span>
+        </div>
+        <span class="player-counts">
+          <span class="glyphicon glyphicon-user"></span>
+          {% if game._source.minimumPlayers == game.maximumPlayers %}
+            {{ game._source.minimumPlayers }}
+          {% else %}
+            {{ game._source.minimumPlayers}}-{{ game._source.maximumPlayers }}
+            {% if game._source.recommendedPlayers != "" %}
+              ({{ game._source.recommendedPlayers }})
+            {% endif %}
+          {% endif %}
+        </span>
+      </div>
+      <div class="interested">
+        <span class="glyphicon glyphicon-ok"></span>
+        {% if game._source.wantsToPlay != null and game._source.wantsToPlay|length > 0 %}
+          {% for w in game._source.wantsToPlay %}
+            <a href="?wantsToPlay={{w}}" title="Games that {{w}} wants to play">{{w}}</a>{{ "," if w != game._source.wantsToPlay[-1] else "" }}
+          {% endfor %}
+        {% else %}
+          Nobody
+        {% endif %}
+      </div>
+      <div class="mechanics">
+        <span class="glyphicon glyphicon-tags mechanics-icon"></span>
+        {% if game._source.mechanics|length > 0 %}
+          {% for m in game._source.mechanics %}
+            <a href="/{{m}}" target="_blank" title="Games with {{m}} mechanics">{{m}}</a>
+            {{"," if m != game._source.mechanics[-1] else ""}}
+          {% endfor %}
+        {% else %}
+          None
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% if paging.showPaging %}
+  <div class="row">
+    <div class="text-center">
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+
+          <!-- previous button -->
+          {% if paging.currentPage > 1 %}
+            <li>
+              <a href="?page={{ paging.currentPage - 1 }}" aria-label="Previous">span aria-hidden="true">&laquo;</span></a>
+            </li>
+          {% endif %}
+
+          <!-- all pages -->
+          {% for i in range(paging.startPage, paging.endPage) %}
+            <li {% if paging.currentPage==i %} class="active" {% endif %}>
+              <a href="?page={{i}}">{{i}}</a>
+            </li>
+          {% endfor %}
+
+          <!-- next button -->
+          {% if paging.endPage < paging.totalPages %}
+            <li>
+              <a href="?page={{ paging.currentPage + 1 }}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a>
+            </li>
+          {% endif %}
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog" id="mdl_filter">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Filter</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="frm_filter">
+          <div class="form-group">
+            <label for="number_of_players">Number of Players</label>
+            <select class="form-control" name="number_of_players">
+              {% for i in range(1,20) %}
+                <option>{{ i }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="wants_to_play">Players</label>
+            {% for p in aggregations.wants_to_play.buckets %}
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="wants_to_play" value="{{ p.key }}" id="p{{ p.key }}">
+                <label class="form-check-label" for="p{{ p.key }}">
+                  {{ p.key }} ({{ p.doc_count }})
+                </label>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="form-group">
+            <label for="rating_range">Rating</label>
+            {% for m in aggregations.rating_ranges.buckets %}
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="rating_ranges" value="{{ m.key }}" id="m{{ m.key }}">
+                <label class="form-check-label" for="m{{ m.key }}">
+                  {{ m.key }} ({{ m.doc_count }})
+                </label>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="form-group">
+            <label for="time_range">Time to Play</label>
+            {% for m in aggregations.time_ranges.buckets %}
+              <div class="form-radio form-radio-inline">
+                <input class="form-radio-input" type="radio" name="time_ranges" value="{{ m.key }}" id="m{{ m.key }}">
+                <label class="form-radio-label" for="m{{ m.key }}">
+                  {{ m.key }} ({{ m.doc_count }})
+                </label>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="form-group">
+            <label for="mechanics">Mechanics</label>
+            {% for m in aggregations.mechanics.buckets %}
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="mechanics" value="{{ m.key }}" id="m{{ m.key }}">
+                <label class="form-check-label" for="m{{ m.key }}">
+                  {{ m.key }} ({{ m.doc_count }})
+                </label>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary action_filter">Filter</button>
+          <button type="button" class="btn btn-secondary action_clear">Clear Filters</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endif %}
+{% endblock %}
