@@ -26,10 +26,13 @@ services:
     networks:
       - elasticnetwork
   website:
-    image: boardgames
-    container_name: boardgames
+    build: ./Dockerfile
+    image: flask
+    container_name: website
     ports:
-      - 8080:80
+      - 5000:5000
+    volumes:
+      - ./flask:/app
     networks:
       - elasticnetwork
 volumes:
