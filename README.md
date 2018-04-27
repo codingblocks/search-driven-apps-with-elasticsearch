@@ -4,7 +4,7 @@
 docker-compose -f docker-compose-dev.yml up```
 
 ```docker build -t flask:latest .```
-```docker-compose up```
+```docker-compose up -d; docker logs -f website```
 
 
 

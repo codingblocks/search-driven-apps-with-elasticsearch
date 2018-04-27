@@ -55,30 +55,30 @@
   </div>
   {% endfor %}
 </div>
-{% if paging.showPaging %}
+{% if paging.show %}
   <div class="row">
     <div class="text-center">
       <nav aria-label="Page navigation">
         <ul class="pagination">
 
           <!-- previous button -->
-          {% if paging.currentPage > 1 %}
+          {% if paging.current > 1 %}
             <li>
-              <a href="?page={{ paging.currentPage - 1 }}" aria-label="Previous">span aria-hidden="true">&laquo;</span></a>
+              <a href="?page={{ paging.current - 1 }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
             </li>
           {% endif %}
 
           <!-- all pages -->
-          {% for i in range(paging.startPage, paging.endPage) %}
-            <li {% if paging.currentPage==i %} class="active" {% endif %}>
+          {% for i in range(paging.start, paging.end) %}
+            <li {% if paging.current==i %} class="active" {% endif %}>
               <a href="?page={{i}}">{{i}}</a>
             </li>
           {% endfor %}
 
           <!-- next button -->
-          {% if paging.endPage < paging.totalPages %}
+          {% if paging.end < paging.total %}
             <li>
-              <a href="?page={{ paging.currentPage + 1 }}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a>
+              <a href="?page={{ paging.current + 1 }}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a>
             </li>
           {% endif %}
 

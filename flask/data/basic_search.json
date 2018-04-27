@@ -1,5 +1,4 @@
 {
-  "size": 12,
   "aggs": {
     "wants_to_play": {
       "terms": {

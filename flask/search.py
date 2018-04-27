@@ -4,10 +4,13 @@ from logger import Logger
 
 class Search:
 
-  def search(self, filters = {}):
+  def search(self, params = {}):
     basic_search = self.__import_dict('data/basic_search.json')
-    if filters:
-      basic_search['query'] = filters
+    if params['query']:
+      basic_search['query'] = params['query']
+    
+    basic_search['size'] = params['size']
+    basic_search['from'] = params['from']
 
     return self.__get(basic_search)
 
@@ -27,7 +30,7 @@ class Search:
 
     results = requests.get('http://elasticsearch:9200/games/_search', headers={'content-type': 'application/json'}, data=query)
     
-    Logger.info('/Response' + str(results.status_code))
+    Logger.info('/Response: ' + str(results.status_code))
     
     results = json.loads(results.content)
     Logger.info(self.__format(results))
