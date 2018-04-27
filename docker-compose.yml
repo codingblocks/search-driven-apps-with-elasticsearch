@@ -26,7 +26,9 @@ services:
     networks:
       - elasticnetwork
   website:
-    build: ./Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: flask
     container_name: website
     ports:
