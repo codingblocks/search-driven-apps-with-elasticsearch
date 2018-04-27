@@ -34,7 +34,7 @@
         <span class="glyphicon glyphicon-ok"></span>
         {% if game._source.wantsToPlay != null and game._source.wantsToPlay|length > 0 %}
           {% for w in game._source.wantsToPlay %}
-            <a href="?wantsToPlay={{w}}" title="Games that {{w}} wants to play">{{w}}</a>{{ "," if w != game._source.wantsToPlay[-1] else "" }}
+            <a href="?wants_to_play={{w}}" title="Games that {{w}} wants to play">{{w}}</a>{{ "," if w != game._source.wantsToPlay[-1] else "" }}
           {% endfor %}
         {% else %}
           Nobody
@@ -44,7 +44,7 @@
         <span class="glyphicon glyphicon-tags mechanics-icon"></span>
         {% if game._source.mechanics|length > 0 %}
           {% for m in game._source.mechanics %}
-            <a href="/{{m}}" target="_blank" title="Games with {{m}} mechanics">{{m}}</a>
+            <a href="?mechanics={{m}}" title="Games with {{m}} mechanics">{{m}}</a>
             {{"," if m != game._source.mechanics[-1] else ""}}
           {% endfor %}
         {% else %}
