@@ -1,8 +1,6 @@
-from logger import Logger
-
 class QueryAdapter:
   def url_to_query(self, query_params):
-    Logger.info('Parsing query params:' + str(query_params))
+    print('Parsing query params:' + str(query_params))
     
     wants_to_play = query_params.getlist('wants_to_play')
     mechanics = query_params.getlist('mechanics')
@@ -17,7 +15,7 @@ class QueryAdapter:
     for m in mechanics:
       query['bool']['filter'].append({ 'term': { 'mechanics' : m } })
 
-    Logger.info('Parsed query params: ' + str(query))
+    print('Parsed query params: ' + str(query))
 
     return {
       'size': 12,

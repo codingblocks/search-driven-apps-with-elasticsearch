@@ -1,6 +1,5 @@
-import json, requests
 from importer import Importer
-from logger import Logger
+import json, requests
 
 class Search:
 
@@ -25,15 +24,15 @@ class Search:
 
   def __get(self, dict):
     query = self.__format(dict)
-    Logger.info('/GET')
-    Logger.info(query)
+    print('/GET')
+    print(query)
 
     results = requests.get('http://elasticsearch:9200/games/_search', headers={'content-type': 'application/json'}, data=query)
     
-    Logger.info('/Response: ' + str(results.status_code))
+    print('/Response: ' + str(results.status_code))
     
     results = json.loads(results.content)
-    Logger.info(self.__format(results))
+    print(self.__format(results))
 
     return results
 

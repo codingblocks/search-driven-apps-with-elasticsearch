@@ -1,8 +1,7 @@
 from flask import Flask, render_template, request
-from logger import Logger
-from search import Search
-from query_adapter import QueryAdapter
-from paging_adapter import PagingAdapter
+from search import *
+from adapters import *
+
 
 app = Flask(__name__)
 

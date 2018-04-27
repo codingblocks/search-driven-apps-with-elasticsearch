@@ -1,5 +1,3 @@
-# const input_file = "data/games.json";
-# const output_file = "data/games-formatted.import";
 import json, requests
 
 class Importer:

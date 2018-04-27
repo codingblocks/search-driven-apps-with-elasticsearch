@@ -7,6 +7,12 @@ docker-compose -f docker-compose-dev.yml up```
 ```docker-compose up -d; docker logs -f website```
 
 
+## Bugs
+* Paging not keeping params
+* Redo UI
+* Filter on reset page
+
+
 
 ## Questions...
 

@@ -15,7 +15,8 @@ class PagingAdapter:
     start = max(current - 5, 1)
     end = min(start + 10, total)
 
-    return {
+
+    paging = {
       'show': start != end,
       'current': current,
       'start': start,
@@ -23,3 +24,6 @@ class PagingAdapter:
       'total': total,
       'size': size
     }
+
+    print('Paging: ' + str(paging))
+    return paging
