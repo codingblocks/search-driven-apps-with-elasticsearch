@@ -12,7 +12,8 @@ docker-compose -f docker-compose-dev.yml up```
 * Redo UI
 * Filter on reset page
 
-
+Production:
+* docker-compose -f docker-compose.yml -f production.yml up -d
 
 ## Questions...
 
