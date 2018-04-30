@@ -1,4 +1,4 @@
-version: '2.2'
+version: '3'
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.2.3
@@ -29,12 +29,19 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: flask
+    image: boardgame-website
     container_name: website
     ports:
       - 5000:5000
     volumes:
-      - ./flask:/app
+      - ./website:/app
+    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 10
+        window: 120s
     networks:
       - elasticnetwork
 volumes:
