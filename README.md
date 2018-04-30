@@ -13,7 +13,7 @@ docker-compose -f docker-compose-dev.yml up```
 * Filter on reset page
 
 Production:
-* docker-compose -f docker-compose.yml -f production.yml up -d
+* kompose convert -f production.yml
 
 ## Questions...
 
