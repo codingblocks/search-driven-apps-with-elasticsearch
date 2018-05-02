@@ -1,6 +1,6 @@
 import json, requests
 
-class Importer:
+class Import_Converter:
 
   def convert_json_to_elastic(self, input_file_name, output_file_name):
     games = self.get_games(input_file_name)
@@ -21,10 +21,13 @@ class Importer:
       counter += 1
       output_rows.append(header_row)
     
+      game['mechanics'] = game['mechanics'].split(',')
+      game['wantsToPlay'] = game['wantsToPlay'].split(',')
+
       game_row = json.dumps(game)
       output_rows.append(game_row)
 
-      return output_rows
+    return output_rows
 
   def write_games(self, output_rows, output_file_name):
     with open(output_file_name, 'w') as output_file:

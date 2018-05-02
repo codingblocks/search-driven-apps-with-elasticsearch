@@ -1,5 +1,5 @@
-/.vs
-/Website/out
+/.vscode
+/website/data/tmp
 *.pyc
 
 ## Ignore Visual Studio temporary files, build results, and

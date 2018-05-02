@@ -1,10 +1,13 @@
-from importer import Importer
+from import_converter import Import_Converter
 import json, requests
 
 class Search:
 
+  def __init__(self, index):
+    self.index = index
+
   def search(self, params = {}):
-    basic_search = self.__import_dict('data/basic_search.json')
+    basic_search = self.__import_dict('data/requests/basic_search.json')
     if params['query']:
       basic_search['query'] = params['query']
     
@@ -14,11 +17,11 @@ class Search:
     return self.__get(basic_search)
 
   def reset(self):
-    games_converted = Importer().convert_json_to_elastic('data/games.json','data/games-formatted.import')
+    games_converted = Import_Converter().convert_json_to_elastic('data/tmp/games.json','data/tmp/games-formatted.import')
     responses = {
-      'delete': requests.delete('http://elasticsearch:9200/games', headers={'content-type': 'application/json'}),
-      'put': requests.put('http://elasticsearch:9200/games', headers={'content-type': 'application/json'}, data=self.__import_json('data/mapping_config.json')),
-      'post': requests.post('http://elasticsearch:9200/games/doc/_bulk', headers={'content-type': 'application/x-ndjson'}, data=open('data/games-formatted.txt').read())
+      'delete': requests.delete(self.index, headers={'content-type': 'application/json'}),
+      'put': requests.put(self.index, headers={'content-type': 'application/json'}, data=self.__import_json('data/requests/mapping_config.json')),
+      'post': requests.post(self.index + '/doc/_bulk', headers={'content-type': 'application/x-ndjson'}, data=open('data/tmp/games-formatted.import').read())
     }
     return responses
 
@@ -27,7 +30,7 @@ class Search:
     print('/GET')
     print(query)
 
-    results = requests.get('http://elasticsearch:9200/games/_search', headers={'content-type': 'application/json'}, data=query)
+    results = requests.get(self.index + '/_search', headers={'content-type': 'application/json'}, data=query)
     
     print('/Response: ' + str(results.status_code))
     
