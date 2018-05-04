@@ -56,7 +56,11 @@
       </div>
       <div class="modal-body" id="frm_filter">
         <div class="form-group">
-          <label for="tags">Shows</label>
+          <div class="form-group">
+            <label for="search">Search:</label>
+            <input type="text" class="form-control" id="search">
+          </div>
+          <label for="tags">Shows:</label>
           {% for p in aggregations.tags.buckets %}
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="checkbox" name="tags" value="{{ p.key }}" id="p{{ p.key }}">
@@ -65,6 +69,10 @@
               </label>
             </div>
           {% endfor %}
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary action_filter">Filter</button>
+            <button type="button" class="btn btn-secondary action_clear">Clear Filters</button>
+          </div>
         </div>
       </div>
     </div>

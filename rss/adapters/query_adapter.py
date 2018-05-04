@@ -2,23 +2,23 @@ class QueryAdapter:
   def url_to_query(self, query_params):
     print('Parsing query params:' + str(query_params))
     
-    wants_to_play = query_params.getlist('wants_to_play')
-    mechanics = query_params.getlist('mechanics')
+    tags = query_params.getlist('tags')
+    search = query_params.get('search')
 
     query = {}
-    if wants_to_play or mechanics:
+    if tags:
       query['bool'] = { 'filter': [] }
 
-    for p in wants_to_play:
-      query['bool']['filter'].append({ 'term': { 'wantsToPlay' : p } })
+    for t in tags:
+      query['bool']['filter'].append({ 'term': { 'tags.keyword' : t } })
 
-    for m in mechanics:
-      query['bool']['filter'].append({ 'term': { 'mechanics' : m } })
+    if search:
+      query['match'] = { 'title': search }
 
     print('Parsed query params: ' + str(query))
 
     return {
-      'size': 12,
-      'from': (int(query_params.get('page',1)) - 1) * 12,
+      'size': 20,
+      'from': (int(query_params.get('page',1)) - 1) * 20,
       'query': query
     }

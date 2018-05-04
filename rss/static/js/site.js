@@ -27,6 +27,12 @@
         params.push({ name: cb.name, value: cb.value });
       }
     });
+
+    var search = $('#search').val();
+    if(search) {
+      params.push({ name: 'search', value: search });
+    }
+
     event.preventDefault();
     if(params.length) {
       location.href = '/?' + $.param(params);
@@ -37,15 +43,6 @@
     if(confirm('Clear filters?')) {
       location.href='/' ;
     }
-  }
-
-  var reset = function() {
-    if(confirm('Reset all data??')) {
-      location.href='/reset' ;
-    } else {
-      return false;
-    }
-    return true;
   }
 
   $(document).ready(function() {
