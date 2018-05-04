@@ -1,0 +1,44 @@
+{
+  "aggs": {
+    "wants_to_play": {
+      "terms": {
+        "field": "wantsToPlay",
+        "order": {
+          "_count": "desc"
+        }
+      }
+    },
+    "mechanics": {
+      "terms": {
+        "field": "mechanics",
+        "order": {
+          "_count": "desc"
+        }
+      }
+    },
+    "rating_ranges": {
+      "range" : {
+        "field" : "rating",
+        "ranges" : [
+          { "to" : 5 },
+          { "from" : 5 },
+          { "from" : 6 },
+          { "from" : 7 },
+          { "from" : 8 }
+        ]
+      }
+    },
+    "time_ranges": {
+      "range" : {
+        "field" : "time",
+        "ranges" : [
+          { "to": 30 },
+          { "from": 30, "to": 60 },
+          { "from": 60, "to" : 90 },
+          { "from": 90, "to" : 120 },
+          { "from" : 120 }
+        ]
+      }
+    }
+  }
+}

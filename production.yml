@@ -19,7 +19,7 @@ services:
     image: docker.elastic.co/kibana/kibana:6.2.3
     ports:
       - 5601:5601
-  website:
+  boardgames:
     image: thejz/boardgame_website
     ports:
       - 80:5000
