@@ -17,7 +17,7 @@ def index():
 @app.route('/reset')
 def reset():
   responses = Search(search_index).reset()
-  return render_template("reset.j2", game_conversion_success=True, responses=responses)
+  return render_template("reset.j2", conversion_success=True, responses=responses)
 
 if __name__ == '__main__':
   app.run(debug=True, host='0.0.0.0')

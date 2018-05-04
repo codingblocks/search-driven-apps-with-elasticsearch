@@ -1,4 +1,3 @@
-from import_converter import Import_Converter
 import json, requests
 
 class Search:
@@ -15,15 +14,6 @@ class Search:
     basic_search['from'] = params['from']
 
     return self.__get(basic_search)
-
-  def reset(self):
-    games_converted = Import_Converter().convert_json_to_elastic('data/tmp/games.json','data/tmp/games-formatted.import')
-    responses = {
-      'delete': requests.delete(self.index, headers={'content-type': 'application/json'}),
-      'put': requests.put(self.index, headers={'content-type': 'application/json'}, data=self.__import_json('data/requests/mapping_config.json')),
-      'post': requests.post(self.index + '/doc/_bulk', headers={'content-type': 'application/x-ndjson'}, data=open('data/tmp/games-formatted.import').read())
-    }
-    return responses
 
   def __get(self, dict):
     query = self.__format(dict)

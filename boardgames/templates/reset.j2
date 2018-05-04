@@ -2,7 +2,7 @@
 {% block content %}
 <div class="row">
     <h1>Resetting data</h1>
-    <p>Converting json to ElasticSearch format <code>{{ game_conversion_success }}</code></p>
+    <p>Converting json to ElasticSearch format <code>{{ conversion_success }}</code></p>
     <p>DELETE <code>{{ responses['delete'].status_code }}</code></p>
     <pre>{{ responses['delete'].content }}</pre>
 

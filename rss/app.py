@@ -14,10 +14,5 @@ def index():
   paging = PagingAdapter().get_paging(request.args, search_results)
   return render_template("index.j2", hits=search_results['hits'], aggregations=search_results['aggregations'], paging=paging)
 
-@app.route('/reset')
-def reset():
-  responses = Search(search_index).reset()
-  return render_template("reset.j2", game_conversion_success=True, responses=responses)
-
 if __name__ == '__main__':
   app.run(debug=True, host='0.0.0.0')
