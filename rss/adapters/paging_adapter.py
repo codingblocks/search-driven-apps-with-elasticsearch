@@ -6,7 +6,7 @@ class PagingAdapter:
     total_hits = int(search_results['hits']['total'])
     total = (total_hits / size) + 1
 
-    if (total_hits % size) != 0:
+    if (total_hits > size and total_hits % size) != 0:
       total = total + 1
 
     current = max(1, current)
@@ -17,7 +17,7 @@ class PagingAdapter:
 
 
     paging = {
-      'show': start != end,
+      'show': end > start,
       'current': current,
       'start': start,
       'end': end,

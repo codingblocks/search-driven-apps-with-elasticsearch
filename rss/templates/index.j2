@@ -1,81 +1,92 @@
 {% extends "layout.j2" %} {% block content %}
-<div class="row">
-  <h2 class="text-center">{{ hits.total|int }} {{ "episode" if hits.total == 1 else "episodes" }} found</h2>
-</div>
-<div class="row">
-  {% for item in hits.hits %}
-    <ul>
-      <li>
-        {{item._source.tags[0]}}
-        <a href="{{item._source.link}}" title="{{item._source.title}}">{{item._source.title}}</a>
-      </ul>
-    </ul>
-  {% endfor %}
-</div>
-{% if paging.show %}
   <div class="row">
-    <div class="text-center">
-      <nav aria-label="Page navigation">
-        <ul class="pagination">
-
-          <!-- previous button -->
-          {% if paging.current > 1 %}
-            <li>
-              <a href="?page={{ paging.current - 1 }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-            </li>
-          {% endif %}
-
-          <!-- all pages -->
-          {% for i in range(paging.start, paging.end) %}
-            <li {% if paging.current==i %} class="active" {% endif %}>
-              <a href="?page={{i}}">{{i}}</a>
-            </li>
-          {% endfor %}
-
-          <!-- next button -->
-          {% if paging.end < paging.total %}
-            <li>
-              <a href="?page={{ paging.current + 1 }}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a>
-            </li>
-          {% endif %}
-
-        </ul>
-      </nav>
-    </div>
+    <h2 class="text-center">{{ hits.total|int }} {{ "episode" if hits.total == 1 else "episodes" }} found</h2>
   </div>
-{% endif %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Episode</th>
+        <th scope="col">Show</th>
+        <th scope="col">Date</th>
+        <th scope="col">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in hits.hits %}
+        <tr>
+          <td><a href="{{item._source.link}}" title="{{item._source.title}}">{{item._source.title}}</a></td>
+          <td>{{item._source.tags[0]}}</td>
+          <td>{{item._source.published}}</td>
+          <td>{{item._score}}</td>
+        </td>
+      {% endfor %}
+    </tbody>
+  </table>
 
-<div class="modal" tabindex="-1" role="dialog" id="mdl_filter">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Filter</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+  {% if paging.show %}
+    <div class="row">
+      <div class="text-center">
+        <nav aria-label="Page navigation">
+          <ul class="pagination">
+
+            <!-- previous button -->
+            {% if paging.current > 1 %}
+              <li>
+                <a href="?page={{ paging.current - 1 }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+              </li>
+            {% endif %}
+
+            <!-- all pages -->
+            {% for i in range(paging.start, paging.end) %}
+              <li {% if paging.current==i %} class="active" {% endif %}>
+                <a href="?page={{i}}">{{i}}</a>
+              </li>
+            {% endfor %}
+
+            <!-- next button -->
+            {% if paging.end < paging.total %}
+              <li>
+                <a href="?page={{ paging.current + 1 }}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a>
+              </li>
+            {% endif %}
+
+          </ul>
+        </nav>
       </div>
-      <div class="modal-body" id="frm_filter">
-        <div class="form-group">
+    </div>
+  {% endif %}
+
+  <div class="modal" tabindex="-1" role="dialog" id="mdl_filter">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Filter</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="frm_filter">
           <div class="form-group">
-            <label for="search">Search:</label>
-            <input type="text" class="form-control" id="search">
-          </div>
-          <label for="tags">Shows:</label>
-          {% for p in aggregations.tags.buckets %}
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="tags" value="{{ p.key }}" id="p{{ p.key }}">
-              <label class="form-check-label" for="p{{ p.key }}">
-                {{ p.key }} ({{ p.doc_count }})
-              </label>
+            <div class="form-group">
+              <label for="search">Search:</label>
+              <input type="text" class="form-control" id="search">
             </div>
-          {% endfor %}
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary action_filter">Filter</button>
-            <button type="button" class="btn btn-secondary action_clear">Clear Filters</button>
+            <label for="tags">Shows:</label>
+            {% for p in aggregations.tags.buckets %}
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="tags" value="{{ p.key }}" id="p{{ p.key }}">
+                <label class="form-check-label" for="p{{ p.key }}">
+                  {{ p.key }} ({{ p.doc_count }})
+                </label>
+              </div>
+            {% endfor %}
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary action_filter">Filter</button>
+              <button type="button" class="btn btn-secondary action_clear">Clear Filters</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 {% endblock %}

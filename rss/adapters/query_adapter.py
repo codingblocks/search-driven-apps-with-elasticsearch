@@ -13,7 +13,7 @@ class QueryAdapter:
       query['bool']['filter'].append({ 'term': { 'tags.keyword' : t } })
 
     if search:
-      query['match'] = { 'title': search }
+      query['fuzzy'] = { 'title': search }
 
     print('Parsed query params: ' + str(query))
 
