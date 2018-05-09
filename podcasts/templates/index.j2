@@ -1,6 +1,9 @@
 {% extends "layout.j2" %} {% block content %}
   <div class="row">
-    <h2 class="text-center">{{ hits.total|int }} {{ "episode" if hits.total == 1 else "episodes" }} found</h2>
+    <h2 class="text-center">{{ hits.total|int }} {{ "episode" if hits.total == 1 else "episodes" }} found
+    {% if request.args.get('search') %}
+      for "{{request.args.get('search')|e}}"</h2>
+    {% endif %}
   </div>
   <table class="table">
     <thead>
