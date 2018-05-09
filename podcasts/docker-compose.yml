@@ -1,11 +1,22 @@
 version: '3'
 services:
+  logstash:
+    image: logstash
+    build:
+      context: .
+      dockerfile: Dockerfile.Logstash
+    ports:
+      - 9600:9600
+    volumes:
+      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    restart: always
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.2.3
     environment:
       - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
     ulimits:
       memlock:
         soft: -1
@@ -19,18 +30,19 @@ services:
     image: docker.elastic.co/kibana/kibana:6.2.3
     ports:
       - 5601:5601
-  boardgames:
+  podcasts:
     build:
       context: .
-      dockerfile: Dockerfile.BoardGames
-    image: boardgames-website
+      dockerfile: Dockerfile.App
+    image: podcasts-app
     environment:
-      - ELASTICSEARCH_INDEX=http://elasticsearch:9200/games
+      - ELASTICSEARCH_INDEX=http://elasticsearch:9200/podcasts
+      - xpack.security.enabled=false
     ports:
       - 5000:5000
     volumes:
-      - ./boardgames:/app
-    restart: unless-stopped
+      - ./app:/app
+    restart: always
 volumes:
   esdata1:
     driver: local
