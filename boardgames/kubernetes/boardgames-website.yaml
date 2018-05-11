@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: boardgames-website
+  name: boardgames-website
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: boardgames-website
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: boardgames-website
+    spec:
+      containers:
+      - image: gcr.io/codingblocks-203603/boardgames-website
+        name: boardgames-website
+        env:
+        - name: ELASTICSEARCH_INDEX
+          value: http://elasticsearch:9200/games
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: boardgames-website
+  name: boardgames-website
+  namespace: default
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: boardgames-website
+  sessionAffinity: None
+  type: LoadBalancer
