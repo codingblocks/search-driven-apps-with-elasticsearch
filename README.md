@@ -17,4 +17,4 @@ A simple search powered website that demonstrates fuzzy matching
 ## Monitoring
 A simple monitoring website that demonstrates application performance management
 
-```# Uh...haven't started this one yet```
+```cd monitoring && docker-compose up```
