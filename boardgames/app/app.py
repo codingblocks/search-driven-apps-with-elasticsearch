@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request
 from search import *
 from adapters import *
+from elasticapm.contrib.flask import ElasticAPM
 import os
 
 search_index = os.environ['ELASTICSEARCH_INDEX']
 
 app = Flask(__name__)
+apm = ElasticAPM(app, logging=True)
 
 @app.route('/')
 def index():

@@ -37,12 +37,20 @@ services:
     image: podcasts-app
     environment:
       - ELASTICSEARCH_INDEX=http://elasticsearch:9200/podcasts
-      - xpack.security.enabled=false
+      - ELASTIC_APM_SERVICE_NAME=podcasts
+      - ELASTIC_APM_SERVER_URL=http://apm:8200
+      - ELASTIC_APM_DEBUG=True
     ports:
       - 5000:5000
     volumes:
       - ./app:/app
     restart: always
+  apm:
+    image: docker.elastic.co/apm/apm-server:6.2.3
+    ports:
+      - 8200:8200
+    volumes:
+      - ./apm/apm-server.yml:/usr/share/apm-server/apm-server.yml
 volumes:
   esdata1:
     driver: local
