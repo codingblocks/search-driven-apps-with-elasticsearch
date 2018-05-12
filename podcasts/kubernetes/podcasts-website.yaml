@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: podcasts-website
+  name: podcasts-website
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: podcasts-website
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: podcasts-website
+    spec:
+      containers:
+      - image: gcr.io/codingblocks-203603/podcasts-website
+        name: podcasts-website
+        env:
+        - name: ELASTICSEARCH_INDEX
+          value: http://elasticsearch:9200/games
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: podcasts-website
+  name: podcasts-website
+  namespace: podcasts
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: podcasts-website
+  sessionAffinity: None
+  type: LoadBalancer

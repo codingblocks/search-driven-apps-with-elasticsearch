@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: apm
+  name: apm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apm
+  template:
+    metadata:
+      labels:
+        app: apm
+    spec:
+      containers:
+      - image: docker.elastic.co/apm/apm-server:6.2.3
+        name: apm
+        volumeMounts:
+        - name: apm-configmap
+          mountPath: /usr/share/apm-server/
+      volumes:
+      - name: apm-configmap
+        configmap:
+          name: apm
+---
+apiVersion: v1
+kind: apm
+metadata:
+  name: apm
+  namespace: podcasts
+data:
+  apm-server.yml: |
+    apm-server:
+      host: "apm:8200"
+
+    output:
+      elasticsearch:
+        hosts: http://elasticsearch:9200
+
+    setup.apm:
+      host: "kibana:5601"

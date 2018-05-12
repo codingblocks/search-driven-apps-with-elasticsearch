@@ -18,3 +18,12 @@ A simple search powered website that demonstrates fuzzy matching
 A simple monitoring website that demonstrates application performance management
 
 ```cd monitoring && docker-compose up```
+
+Notes on k8s-ing:
+```docker build -f Dockerfile.App -t podcasts-website .
+docker tag podcasts-website:latest gcr.io/codingblocks-203603/podcasts-website
+docker push gcr.io/codingblocks-203603/podcasts-website
+
+docker build -f Dockerfile.Logstash -t logstash .
+docker tag logstash:latest gcr.io/codingblocks-203603/logstash
+docker push gcr.io/codingblocks-203603/logstash```
