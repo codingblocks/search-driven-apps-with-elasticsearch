@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: elasticsearch
+  name: elasticsearch
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elasticsearch
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+      - image: docker.elastic.co/elasticsearch/elasticsearch:6.2.3
+        imagePullPolicy: IfNotPresent
+        name: elasticsearch
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        env:
+        - name: cluster.name
+          value: docker-cluster
+        - name: bootstrap.memory_lock
+          value: "false"
+        - name: ES_JAVA_OPTS
+          value: "-Xms1g -Xmx1g"
+        - name: RLIMIT_MEMLOCK
+          value: "524288"
+      volumes:
+      - persistentVolumeClaim:
+          claimName: es-claim
+        name: es-claim
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: slow
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-standard
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: es-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: slow
+  resources:
+    requests:
+      storage: 30Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: elasticsearch
+  name: elasticsearch
+  namespace: default
+spec:
+  ports:
+  - name: 9200-9200
+    port: 9200
+    protocol: TCP
+    targetPort: 9200
+  - name: 9300-9300
+    port: 9300
+    protocol: TCP
+    targetPort: 9300
+  selector:
+    app: elasticsearch
+  sessionAffinity: None
+  type: ClusterIP
