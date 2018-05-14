@@ -27,3 +27,5 @@ docker push gcr.io/codingblocks-203603/podcasts-website
 docker build -f Dockerfile.Logstash -t logstash .
 docker tag logstash:latest gcr.io/codingblocks-203603/logstash
 docker push gcr.io/codingblocks-203603/logstash```
+
+```kubectl apply -f ./kubernetes --namespace podcasts```

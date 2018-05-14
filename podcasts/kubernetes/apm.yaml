@@ -18,26 +18,24 @@ spec:
       - image: docker.elastic.co/apm/apm-server:6.2.3
         name: apm
         volumeMounts:
-        - name: apm-configmap
+        - name: apm-volume
           mountPath: /usr/share/apm-server/
       volumes:
-      - name: apm-configmap
-        configmap:
-          name: apm
+      - name: apm-volume
+        configMap:
+          name: apm-config
 ---
 apiVersion: v1
-kind: apm
+kind: ConfigMap
 metadata:
-  name: apm
+  name: apm-config
   namespace: podcasts
 data:
   apm-server.yml: |
     apm-server:
       host: "apm:8200"
-
     output:
       elasticsearch:
         hosts: http://elasticsearch:9200
-
     setup.apm:
       host: "kibana:5601"

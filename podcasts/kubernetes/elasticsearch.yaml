@@ -1,10 +1,9 @@
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
     app: elasticsearch
   name: elasticsearch
-  namespace: podcasts
 spec:
   replicas: 1
   selector:
@@ -42,7 +41,7 @@ spec:
         name: es-claim
       dnsPolicy: ClusterFirst
       restartPolicy: Always
-      schedulerName: default-scheduler
+      schedulerName: podcasts-scheduler
       terminationGracePeriodSeconds: 30
 ---
 apiVersion: storage.k8s.io/v1

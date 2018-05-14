@@ -22,7 +22,7 @@ spec:
           mountPath: /usr/share/logstash/pipeline/
       volumes:
       - name: logstash-configmap
-        configmap:
+        configMap:
           name: logstash
 ---
 apiVersion: v1
