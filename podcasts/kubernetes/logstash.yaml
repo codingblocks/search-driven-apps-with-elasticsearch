@@ -15,7 +15,7 @@ spec:
         app: logstash
     spec:
       containers:
-      - image: gcr.io/codingblocks-203603/logstash
+      - image: gcr.io/macro-dolphin-137214/logstash
         name: logstash
         volumeMounts:
         - name: logstash-configmap

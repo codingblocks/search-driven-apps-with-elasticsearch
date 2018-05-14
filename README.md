@@ -20,12 +20,18 @@ A simple monitoring website that demonstrates application performance management
 ```cd monitoring && docker-compose up```
 
 Notes on k8s-ing:
-```docker build -f Dockerfile.App -t podcasts-website .
-docker tag podcasts-website:latest gcr.io/codingblocks-203603/podcasts-website
-docker push gcr.io/codingblocks-203603/podcasts-website
-
+```bash
+docker build -f Dockerfile.App -t podcasts-website .
+docker tag podcasts-website:latest gcr.io/macro-dolphin-137214/podcasts-website
+docker push gcr.io/macro-dolphin-137214/podcasts-website
+```
+```bash
 docker build -f Dockerfile.Logstash -t logstash .
-docker tag logstash:latest gcr.io/codingblocks-203603/logstash
-docker push gcr.io/codingblocks-203603/logstash```
+docker tag logstash:latest gcr.io/macro-dolphin-137214/logstash
+docker push gcr.io/macro-dolphin-137214/logstash
+```
 
-```kubectl apply -f ./kubernetes --namespace podcasts```
+```bash
+kubectl create -f ./kubernetes/namespace-podcasts.json
+kubectl apply -f ./kubernetes --namespace podcasts
+```

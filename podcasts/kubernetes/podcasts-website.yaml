@@ -16,7 +16,7 @@ spec:
         app: podcasts-website
     spec:
       containers:
-      - image: gcr.io/codingblocks-203603/podcasts-website
+      - image: gcr.io/macro-dolphin-137214/podcasts-website
         name: podcasts-website
         env:
         - name: ELASTICSEARCH_INDEX

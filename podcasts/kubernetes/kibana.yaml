@@ -24,7 +24,7 @@ metadata:
   labels:
     app: kibana
   name: kibana
-  namespace: default
+  namespace: podcasts
 spec:
   ports:
   - port: 5601
