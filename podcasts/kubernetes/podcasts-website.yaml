@@ -20,7 +20,7 @@ spec:
         name: podcasts-website
         env:
         - name: ELASTICSEARCH_INDEX
-          value: http://elasticsearch:9200/games
+          value: http://elasticsearch:9200/podcasts
 ---
 apiVersion: v1
 kind: Service

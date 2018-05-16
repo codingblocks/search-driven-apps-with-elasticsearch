@@ -4,6 +4,7 @@ metadata:
   labels:
     app: elasticsearch
   name: elasticsearch
+  namespace: podcasts
 spec:
   replicas: 1
   selector:
@@ -41,14 +42,13 @@ spec:
         name: es-claim
       dnsPolicy: ClusterFirst
       restartPolicy: Always
-      schedulerName: podcasts-scheduler
+      schedulerName: default-scheduler
       terminationGracePeriodSeconds: 30
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: slow
-  namespace: podcasts
 provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-standard
@@ -57,7 +57,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: es-claim
-  namespace: podcasts
 spec:
   accessModes:
     - ReadWriteOnce
