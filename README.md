@@ -4,6 +4,8 @@ Elasticsearch is a highly scalable and feature-rich search engine that makes cer
 
 This repository contains three (okay, two - but the third is comign soon!) different apps that take advantage of Elasticsearch's capabilities to do really cool things. It's all about using the right tool for the job!
 
+Check out the slides here: [https://github.com/codingblocks/search-driven-apps/blob/master/search-driven-apps.pptx](https://github.com/codingblocks/search-driven-apps/blob/master/search-driven-apps.pptx)
+
 ## Board Games
 An ecommerce style website for filtering board games.
 
