@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.Logstash
+    depends_on:
+      - elasticsearch
     ports:
       - 9600:9600
     volumes:
@@ -23,6 +25,7 @@ services:
         hard: -1
     volumes:
       - esdata1:/usr/share/elasticsearch/data
+      - ./elasticsearch/synonym.txt:/usr/share/elasticsearch/config/analysis/synonym.txt
     ports:
       - 9200:9200
       - 9300:9300
@@ -34,6 +37,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.App
+    depends_on:
+      - elasticsearch
     image: podcasts-app
     environment:
       - ELASTICSEARCH_INDEX=http://elasticsearch:9200/podcasts
@@ -47,6 +52,8 @@ services:
     restart: always
   apm:
     image: docker.elastic.co/apm/apm-server:6.2.3
+    depends_on:
+      - podcasts
     ports:
       - 8200:8200
     volumes:
