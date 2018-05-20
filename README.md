@@ -35,6 +35,12 @@ docker push gcr.io/macro-dolphin-137214/logstash
 ```
 
 ```bash
+docker build -f Dockerfile.Apm -t apm .
+docker tag apm:latest gcr.io/macro-dolphin-137214/apm
+docker push gcr.io/macro-dolphin-137214/apm
+```
+
+```bash
 cd kubernetes
 kubectl create -f namespace-podcasts.json --namespace=podcasts
 kubectl config set-context $(kubectl config current-context) --namespace=podcasts

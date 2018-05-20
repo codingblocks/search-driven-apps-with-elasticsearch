@@ -36,34 +36,10 @@ spec:
           value: "-Xms1g -Xmx1g"
         - name: RLIMIT_MEMLOCK
           value: "524288"
-      volumes:
-      - persistentVolumeClaim:
-          claimName: es-claim
-        name: es-claim
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       terminationGracePeriodSeconds: 30
----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: slow
-provisioner: kubernetes.io/gce-pd
-parameters:
-  type: pd-standard
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: es-claim
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: slow
-  resources:
-    requests:
-      storage: 30Gi
 ---
 apiVersion: v1
 kind: Service

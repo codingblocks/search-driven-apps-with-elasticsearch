@@ -9,8 +9,6 @@ services:
       - elasticsearch
     ports:
       - 9600:9600
-    volumes:
-      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
     restart: always
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.2.3
@@ -51,13 +49,14 @@ services:
       - ./app:/app
     restart: always
   apm:
-    image: docker.elastic.co/apm/apm-server:6.2.3
+    image: apm
+    build:
+      context: .
+      dockerfile: Dockerfile.Apm
     depends_on:
-      - podcasts
+      - elasticsearch
     ports:
       - 8200:8200
-    volumes:
-      - ./apm/apm-server.yml:/usr/share/apm-server/apm-server.yml
 volumes:
   esdata1:
     driver: local
