@@ -8,6 +8,7 @@
   <table class="table">
     <thead>
       <tr>
+        <th scope="col">Q</th>
         <th scope="col">Episode</th>
         <th scope="col">Show</th>
         <th scope="col">Date</th>
@@ -17,6 +18,11 @@
     <tbody>
       {% for item in hits.hits %}
         <tr>
+          <td>
+            <a href="#" onclick="javascript: return queue('{{item._source.tags[0]}}', '{{item._source.title}}');" alt="Queue it up!">
+              <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+            </a>
+          </td>
           <td><a href="{{item._source.link}}" title="{{item._source.title}}">{{item._source.title}}</a></td>
           <td>{{item._source.tags[0]}}</td>
           <td>{{item._source.published}}</td>

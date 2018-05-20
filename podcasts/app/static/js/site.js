@@ -50,6 +50,35 @@
     $('.action_filter').on('click', filter);
     $('.action_clear').on('click', clearFilters);
     $('.action_showFilters').on('click', showFilters);
-    $('.action_reset').on('click', reset);
   });
 })();
+
+var Winamp = window.Webamp;
+if(!Webamp.browserIsSupported()) {
+    alert("Oh no! Webamp does not work!")
+    throw new Error("What's the point of anything?")
+}
+
+const webamp = new Webamp({
+    initialTracks: [],
+    initialSkin: {
+        // Can be downloaded from https://github.com/captbaritone/webamp/raw/master/skins/base-2.91.wsz
+        url: "static/base-2.91.wsz"
+    },
+});
+
+var winAmpRendered = false;
+var queue = function(artist, title) {
+    webamp.appendTracks([{
+        metaData: {
+            artist: artist,
+            title: title,
+        },
+        // Can be downloaded from: https://github.com/captbaritone/webamp/raw/master/mp3/llama-2.91.mp3
+        url: "http://media.blubrry.com/codingblocks/s/www.podtrac.com/pts/redirect.mp3/traffic.libsyn.com/codingblocks/codingblocks-episode-080.mp3"
+    }]);
+    if(!winAmpRendered) {
+        winAmpRendered = true;
+        webamp.renderWhenReady(document.getElementById('winamp-container'));
+    }
+}
