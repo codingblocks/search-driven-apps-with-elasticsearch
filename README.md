@@ -21,6 +21,11 @@ A simple monitoring website that demonstrates application performance management
 
 ```cd monitoring && docker-compose up```
 
+## Troubleshooting
+Just run this
+
+```docker kill $(docker ps -q)```
+
 ## Notes on deploying with kubernetes
 ```bash
 docker build -f Dockerfile.App -t podcasts-website .
