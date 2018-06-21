@@ -27,15 +27,15 @@ class Search:
 
   def __get(self, dict):
     query = self.__format(dict)
-    print('/GET')
+    #print('/GET')
     print(query)
 
     results = requests.get(self.index + '/_search', headers={'content-type': 'application/json'}, data=query)
     
-    print('/Response: ' + str(results.status_code))
+    #print('/Response: ' + str(results.status_code))
     
     results = json.loads(results.content)
-    print(self.__format(results))
+    #print(self.__format(results))
 
     return results
 
