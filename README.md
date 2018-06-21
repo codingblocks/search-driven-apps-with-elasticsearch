@@ -2,24 +2,26 @@
 
 Elasticsearch is a highly scalable and feature-rich search engine that makes certain types of problems very easy to solve.
 
-This repository contains three (okay, two - but the third is comign soon!) different apps that take advantage of Elasticsearch's capabilities to do really cool things. It's all about using the right tool for the job!
+This repository contains three (okay, two - the third is handled by [APM](https://www.elastic.co/solutions/apm)) different apps that take advantage of Elasticsearch's capabilities to do really cool things. It's all about using the right tool for the job!
 
 Check out the slides here: [https://github.com/codingblocks/search-driven-apps/blob/master/search-driven-apps.pptx](https://github.com/codingblocks/search-driven-apps/blob/master/search-driven-apps.pptx)
 
-## Board Games
+Also, if you're interested in experimenting with Elasticsearch - make sure to check out this [docker-compose file we made that will spin up Elasticsearch, Logstash, and Kibana](https://github.com/codingblocks/simplified-elastic-stack) so you can hit the ground running!
+
+## More about the apps
+
+### Board Games
 An ecommerce style website for filtering board games.
 
 ```cd boardgames && docker-compose up```
 
-## Podcasts
+### Podcasts
 A simple search powered website that demonstrates fuzzy matching
 
 ```cd podcasts && docker-compose up```
 
-## Monitoring
-A simple monitoring website that demonstrates application performance management
-
-```cd monitoring && docker-compose up```
+### Monitoring
+Handled through Kibana
 
 ## Troubleshooting
 Just run this
