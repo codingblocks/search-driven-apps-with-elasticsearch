@@ -68,7 +68,7 @@ services:
     ports:
       - 8200:8200
     volumes:
-      - ./apm/apm-server.yml:/usr/share/apm-server/apm-server.yml
+      - ./monitoring/apm/apm-server.yml:/usr/share/apm-server/apm-server.yml
 volumes:
   esdata1:
     driver: local
