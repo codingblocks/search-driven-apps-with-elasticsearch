@@ -31,6 +31,8 @@ services:
     image: docker.elastic.co/kibana/kibana:6.2.3
     ports:
       - 5601:5601
+    environment:
+      - "xpack.security.enabled=false"
     restart: always
   podcasts:
     build:
