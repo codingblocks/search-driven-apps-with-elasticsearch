@@ -25,8 +25,14 @@ class Search:
     }
     return responses
 
+  def suggest(self, title):
+    suggest = self.__import_dict('data/requests/suggest.json')
+    suggest['query']['match']['title.edgengram'] = title
+    return self.__get(suggest)
+
   def __get(self, dict):
     query = self.__format(dict)
+
     #print('/GET')
     print(query)
 
